@@ -55,7 +55,7 @@ public class CustomOAuth2UserService extends DefaultOAuth2UserService {
             if(!user.getProvider().equals(AuthProvider.valueOf(oAuth2UserRequest.getClientRegistration().getRegistrationId()))) {
                 throw new OAuth2AuthenticationProcessingException("plesase use appropriate provider details");
             }
-            user = updateExistingUser(user, oAuth2UserInfo);
+//            user = updateExistingUser(user, oAuth2UserInfo);
             return UserPrincipal.create(user, oAuth2User.getAttributes());
         }else {
         	return null;

@@ -7,7 +7,7 @@ public class AuthTokenRequst {
 	private String token;
 	private String orgName;
 	private LocalDateTime expTime;
-	private List<Integer> userIds;
+	private List<Long> userIds;
 	public String getToken() {
 		return token;
 	}
@@ -26,12 +26,11 @@ public class AuthTokenRequst {
 	public void setExpTime(LocalDateTime expTime) {
 		this.expTime = expTime;
 	}
-	public List<Integer> getUserIds() {
+	public List<Long> getUserIds() {
 		return userIds;
 	}
-	public void setUserIds(List<Integer> userIds) {
+	public void setUserIds(List<Long> userIds) {
 		this.userIds = userIds;
 	}
-	
 	
 }

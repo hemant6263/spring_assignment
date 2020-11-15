@@ -5,6 +5,7 @@ import java.util.Collection;
 import java.util.List;
 import java.util.Map;
 
+import org.apache.log4j.Logger;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -14,7 +15,8 @@ import com.example.springsocial.entity.Role;
 import com.example.springsocial.entity.User;
 
 /**
- * @author hemant This Class will be used to create principals and extract user
+ * @author hemant 
+ * This Class will be used to create principals and extract user
  *         detials that will be used to authenticate object the info in the
  *         security context
  */
@@ -24,6 +26,7 @@ public class UserPrincipal implements OAuth2User, UserDetails {
 	private String password;
 	private Collection<? extends GrantedAuthority> authorities;
 	private Map<String, Object> attributes;
+	private static Logger logger= Logger.getLogger(UserPrincipal.class);
 
 	public UserPrincipal(Long id, String email, String password, Collection<? extends GrantedAuthority> authorities) {
 		this.id = id;
@@ -43,13 +46,13 @@ public class UserPrincipal implements OAuth2User, UserDetails {
 		} else {
 			authorities.add(new SimpleGrantedAuthority("ROLE_USER"));
 		}
-
 		return new UserPrincipal(user.getId(), user.getEmail(), user.getPassword(), authorities);
 	}
 
 	public static UserPrincipal create(User user, Map<String, Object> attributes) {
 		UserPrincipal userPrincipal = UserPrincipal.create(user);
 		userPrincipal.setAttributes(attributes);
+		logger.debug("[UserPrincipal][UserPrincipal]"+userPrincipal);
 		return userPrincipal;
 	}
 
@@ -109,4 +112,11 @@ public class UserPrincipal implements OAuth2User, UserDetails {
 	public String getName() {
 		return String.valueOf(id);
 	}
+
+	@Override
+	public String toString() {
+		return "UserPrincipal [id=" + id + ", email=" + email + ", password=" + password + ", authorities="
+				+ authorities + ", attributes=" + attributes + ", logger=" + logger + "]";
+	}
+	
 }

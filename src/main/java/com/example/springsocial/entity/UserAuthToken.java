@@ -16,7 +16,7 @@ public class UserAuthToken {
 	@Column(nullable = false)
 	private int tokenid;
 	@Column(nullable = false)
-	private int userId;
+	private Long userId;
 	@Column
 	private int status;
 	public int getId() {
@@ -31,17 +31,24 @@ public class UserAuthToken {
 	public void setToken_id(int token_id) {
 		this.tokenid = token_id;
 	}
-	public int getUserId() {
-		return userId;
-	}
-	public void setUserId(int userId) {
-		this.userId = userId;
-	}
 	public int getStatus() {
 		return status;
 	}
 	public void setStatus(int status) {
 		this.status = status;
 	}
+	public int getTokenid() {
+		return tokenid;
+	}
+	public void setTokenid(int tokenid) {
+		this.tokenid = tokenid;
+	}
+	public Long getUserId() {
+		return userId;
+	}
+	public void setUserId(Long userId) {
+		this.userId = userId;
+	}
+	
 	
 }

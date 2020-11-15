@@ -10,5 +10,8 @@ import com.example.springsocial.entity.UserAuthToken;
 @Repository
 public interface UserAuthTokenRepository extends JpaRepository<UserAuthToken, Long> {
 	List<UserAuthToken> getByTokenid(int tokenId);
+	
+	UserAuthToken getByTokenidAndUserIdAndStatus(int tokenId,long userId,int status);
+
 
 }

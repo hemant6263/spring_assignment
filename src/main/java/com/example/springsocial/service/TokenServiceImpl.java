@@ -46,8 +46,8 @@ public class TokenServiceImpl implements TokenService {
 			UserAuthToken userAuthToken = new UserAuthToken();
 			userAuthToken.setToken_id(token.getId());
 			userAuthToken.setStatus(1);
-			List<Integer> userIds = authTokenRequst.getUserIds();
-			for(Integer id :  userIds) {
+			List<Long> userIds = authTokenRequst.getUserIds();
+			for(Long id :  userIds) {
 				userAuthToken.setUserId(id);
 				userAuthTokenRepo.save(userAuthToken);
 			}
