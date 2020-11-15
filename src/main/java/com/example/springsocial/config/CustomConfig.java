@@ -9,7 +9,6 @@ import com.example.springsocial.filters.TokenCheckFilter;
 
 @Configuration
 public class CustomConfig {
-	
 	@Bean
 	public FilterRegistrationBean<OncePerRequestFilter> loggingFilter(){
 	    FilterRegistrationBean<OncePerRequestFilter> registrationBean 
