@@ -10,8 +10,8 @@ import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.oauth2.core.user.OAuth2User;
+import org.springframework.util.StringUtils;
 
-import com.example.springsocial.entity.Role;
 import com.example.springsocial.entity.User;
 
 /**
@@ -37,13 +37,13 @@ public class UserPrincipal implements OAuth2User, UserDetails {
 
 	public static UserPrincipal create(User user) {
 		List<GrantedAuthority> authorities = new ArrayList<>();
-
-		Collection<Role> roles = user.getRoles();
-		if (roles.size() > 0) {
-			for (Role role : roles) {
-				authorities.add(new SimpleGrantedAuthority(role.getName()));
+		String roles = user.getRoles();
+		if(!StringUtils.isEmpty(roles) && roles.contains(",")){
+			String[] role  = roles.split(",");
+			for(String s : role) {
+				authorities.add(new SimpleGrantedAuthority(s));	
 			}
-		} else {
+		}else {
 			authorities.add(new SimpleGrantedAuthority("ROLE_USER"));
 		}
 		return new UserPrincipal(user.getId(), user.getEmail(), user.getPassword(), authorities);

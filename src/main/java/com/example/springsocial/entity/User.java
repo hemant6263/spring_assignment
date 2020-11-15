@@ -38,16 +38,9 @@ public class User {
 
     private String providerId;
     
-	@ManyToMany(fetch = FetchType.EAGER,cascade = CascadeType.ALL)
-    @JoinTable( 
-        name = "users_roles", 
-        joinColumns = @JoinColumn(
-          name = "user_id", referencedColumnName = "id"), 
-        inverseJoinColumns = @JoinColumn(
-          name = "role_id", referencedColumnName = "id")) 
-    private Collection<Role> roles;
-
-
+    @Column
+    private String roles;
+    
     public Long getId() {
         return id;
     }
@@ -112,11 +105,11 @@ public class User {
         this.providerId = providerId;
     }
 
-	public Collection<Role> getRoles() {
+	public String getRoles() {
 		return roles;
 	}
 
-	public void setRoles(Collection<Role> roles) {
+	public void setRoles(String roles) {
 		this.roles = roles;
 	}
 
@@ -124,8 +117,8 @@ public class User {
 	public String toString() {
 		return "User [id=" + id + ", name=" + name + ", email=" + email + ", imageUrl=" + imageUrl + ", emailVerified="
 				+ emailVerified + ", password=" + password + ", provider=" + provider + ", providerId=" + providerId
-				+ ", roles=" + roles + "]";
+				+ "]";
 	}
-	
+
     
 }

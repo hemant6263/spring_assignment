@@ -16,17 +16,18 @@ import org.springframework.web.servlet.mvc.method.annotation.ResponseEntityExcep
 public class CustomExceptionHandler extends ResponseEntityExceptionHandler {
 	private final Logger LOGGER = Logger.getLogger(CustomExceptionHandler.class);
 
-	@ResponseStatus(code  = HttpStatus.INTERNAL_SERVER_ERROR)
+	@ResponseStatus(code = HttpStatus.INTERNAL_SERVER_ERROR)
 	public ResponseEntity<?> parentExceptionForInterServerError(Exception exception) {
-		LOGGER.error("error",exception);
+		LOGGER.error("error", exception);
 		Map<String, Object> body = new LinkedHashMap<>();
 		body.put("timestamp", LocalDateTime.now());
 		body.put("message", exception.getMessage());
 		return new ResponseEntity<>(body, HttpStatus.BAD_REQUEST);
 	}
+
 	@ExceptionHandler(NullPointerException.class)
 	public ResponseEntity<?> NnullPointerExceptionHandeler(NullPointerException exception) {
-		LOGGER.error("error",exception);
+		LOGGER.error("error", exception);
 		Map<String, Object> body = new LinkedHashMap<>();
 		body.put("timestamp", LocalDateTime.now());
 		body.put("message", "Null pointer");

@@ -1,0 +1,60 @@
+Desgin Discussion;
+
+Use Cases(Basic)
+1. Multiple Organisation can login to the system and access this application as a paas
+2. User need the provision to create token for the use of out side user
+
+Tools and frameworks:
+
+SpringBoot 2.2.1
+Spring Social
+Spring Data
+Spring Security
+JWT
+
+Data Base: mysql
+
+Architectural Pattern: REST
+
+Discussion:
+We will be using  OAUTH2 to implment gogole login and for this we will be using Spring social which provides out of the box implementaions for outh;
+
+Auth flow will be start from users browser where user has the option to login in to the system using username passwors or google, point to remember we will be using his/her mail id as the unique identifier from his email we will be extracing user roles (GRANTED AUTHORITES) which then will be used to authorise the user;
+
+redirection;
+For Our application we only need user info and email as the oauth scope from which we will be creating userdetails and principlae to authenticate the user;
+
+we are using REST so the complete applicatio is stateless to mainten this authorization data we will be using cookies to store the information in BASE64 Encoding;
+
+Oauth suggest to send any STATE data to authrzation server we wil be sending redirec_uri in the request param and auth server will return it with out making any changes to it so we have to mainten the state in our backend code to verify the call.
+
+Classes those will be participating i oauth
+CustomOAuth2UserService:  
+This will exract the user data from the auth server and mainten it
+
+HttpCookieOAuth2AuthorizationRequestRepository:
+will load authorize request into cookie using base64 encoing
+
+OAuth2AuthenticationSuccessHandler:
+This will handel if the auth server returns token
+OAuth2AuthenticationSuccessHandler will generate JWT token that will be send to the ui and ui has to keeo it for furhter uses 
+
+OAuth2AuthenticationFailureHandler:
+This will handle if auth sever return error
+
+RestAuthenticationEntryPoint:
+When authorization failes will return 401
+
+filter:
+
+TokenAuthenticationFilter:
+
+will extract the token from header and will check its authenticity and authorization against the logged in user
+
+TokenCheckFilter:
+will extract the principal from jwt token for every request
+
+Classes(entities) We need are User,Token,userToken;
+
+
+
