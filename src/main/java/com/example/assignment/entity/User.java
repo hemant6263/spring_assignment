@@ -41,6 +41,12 @@ public class User {
     @Column
     private String roles;
     
+    @Column(name = "org_id")
+    private Long orgId;
+    
+    @Column(name = "status")
+    private boolean status;
+    
     public Long getId() {
         return id;
     }
@@ -111,6 +117,22 @@ public class User {
 
 	public void setRoles(String roles) {
 		this.roles = roles;
+	}
+
+	public Long getOrgId() {
+		return orgId;
+	}
+
+	public void setOrgId(Long orgId) {
+		this.orgId = orgId;
+	}
+
+	public boolean isStatus() {
+		return status;
+	}
+
+	public void setStatus(boolean status) {
+		this.status = status;
 	}
 
 	@Override

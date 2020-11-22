@@ -26,13 +26,17 @@ public class UserPrincipal implements OAuth2User, UserDetails {
 	private String password;
 	private Collection<? extends GrantedAuthority> authorities;
 	private Map<String, Object> attributes;
+	private Long orrgId;
+	private boolean status;
 	private static Logger logger= Logger.getLogger(UserPrincipal.class);
 
-	public UserPrincipal(Long id, String email, String password, Collection<? extends GrantedAuthority> authorities) {
+	public UserPrincipal(Long id, String email, String password, Collection<? extends GrantedAuthority> authorities,long orrgId,boolean status  ) {
 		this.id = id;
 		this.email = email;
 		this.password = password;
 		this.authorities = authorities;
+		this.orrgId =orrgId;
+		this.status = status;
 	}
 
 	public static UserPrincipal create(User user) {
@@ -43,10 +47,12 @@ public class UserPrincipal implements OAuth2User, UserDetails {
 			for(String s : role) {
 				authorities.add(new SimpleGrantedAuthority(s));	
 			}
+		}else if(!StringUtils.isEmpty(roles)){
+			authorities.add(new SimpleGrantedAuthority(roles));
 		}else {
 			authorities.add(new SimpleGrantedAuthority("ROLE_USER"));
 		}
-		return new UserPrincipal(user.getId(), user.getEmail(), user.getPassword(), authorities);
+		return new UserPrincipal(user.getId(), user.getEmail(), user.getPassword(), authorities,user.getOrgId(),user.isStatus());
 	}
 
 	public static UserPrincipal create(User user, Map<String, Object> attributes) {
@@ -91,7 +97,7 @@ public class UserPrincipal implements OAuth2User, UserDetails {
 
 	@Override
 	public boolean isEnabled() {
-		return true;
+		return status;
 	}
 
 	@Override
@@ -118,5 +124,14 @@ public class UserPrincipal implements OAuth2User, UserDetails {
 		return "UserPrincipal [id=" + id + ", email=" + email + ", password=" + password + ", authorities="
 				+ authorities + ", attributes=" + attributes + ", logger=" + logger + "]";
 	}
+
+	public Long getOrrgId() {
+		return orrgId;
+	}
+
+	public void setOrrgId(Long orrgId) {
+		this.orrgId = orrgId;
+	}
+	
 	
 }

@@ -13,5 +13,5 @@ public class SpringSocialApplication extends SpringBootServletInitializer{
 
 	public static void main(String[] args) {
 		SpringApplication.run(SpringSocialApplication.class, args);
-	}
+	} 
 }

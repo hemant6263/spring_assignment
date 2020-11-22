@@ -13,14 +13,12 @@ import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Component;
-import org.springframework.web.context.WebApplicationContext;
-import org.springframework.web.context.support.WebApplicationContextUtils;
 import org.springframework.web.filter.OncePerRequestFilter;
 
 import com.example.assignment.entity.AuthToken;
-import com.example.assignment.entity.UserAuthToken;
+import com.example.assignment.entity.OrgAuthToken;
 import com.example.assignment.repository.AuthTokenRerpository;
-import com.example.assignment.repository.UserAuthTokenRepository;
+import com.example.assignment.repository.OrgAuthTokenRepository;
 import com.example.assignment.security.UserPrincipal;
 import com.nimbusds.oauth2.sdk.util.StringUtils;
 
@@ -30,7 +28,7 @@ public class TokenCheckFilter extends OncePerRequestFilter {
 	@Autowired
 	private AuthTokenRerpository authTokenRerpository;
 	@Autowired
-	private UserAuthTokenRepository userAuthTokenRerpository;
+	private OrgAuthTokenRepository userAuthTokenRerpository;
 	private Logger logger = Logger.getLogger(TokenCheckFilter.class);
 
 	protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain filterChain)
@@ -52,9 +50,8 @@ public class TokenCheckFilter extends OncePerRequestFilter {
 			response.sendError(HttpServletResponse.SC_BAD_REQUEST, "Token Expired");
 		}
 		UserPrincipal principal = (UserPrincipal) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-		UserAuthToken userToken = userAuthTokenRerpository.getByTokenidAndUserIdAndStatus(token.getId(),
-				principal.getId(), 1);
-		if (userToken == null) {
+		OrgAuthToken orgToken = userAuthTokenRerpository.getByTokenidAndOrgIdAndStatus(token.getId(), principal.getOrrgId(), 1);
+		if (orgToken == null) {
 			response.sendError(HttpServletResponse.SC_BAD_REQUEST, "Contact Service");
 		}
 

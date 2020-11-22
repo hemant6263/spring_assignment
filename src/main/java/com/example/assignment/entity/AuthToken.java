@@ -15,10 +15,10 @@ import javax.validation.constraints.Future;
 @Table(name = "auth_token", uniqueConstraints = {
         @UniqueConstraint(columnNames = "token")
 })
-public class AuthToken {
+public class AuthToken extends Auditable<String> {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private int id;
+	private long id;
 	@Column(nullable = false)
 	private String token;
 	@Column(nullable = false)
@@ -27,11 +27,13 @@ public class AuthToken {
 	@Column(nullable = false)
 	private LocalDateTime expTime;
 	@Column
-	private int status;
-	public int getId() {
+	private boolean status;
+	@Column(nullable = false)
+	private long orgId;
+	public long getId() {
 		return id;
 	}
-	public void setId(int id) {
+	public void setId(long id) {
 		this.id = id;
 	}
 	public String getToken() {
@@ -52,12 +54,19 @@ public class AuthToken {
 	public void setExpTime(LocalDateTime expTime) {
 		this.expTime = expTime;
 	}
-	public int getStatus() {
+	public boolean getStatus() {
 		return status;
 	}
-	public void setStatus(int status) {
+	public void setStatus(boolean status) {
 		this.status = status;
 	}
+	public long getOrgId() {
+		return orgId;
+	}
+	public void setOrgId(long orgId) {
+		this.orgId = orgId;
+	}
+	
 	
 
 }

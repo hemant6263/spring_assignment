@@ -8,27 +8,27 @@ import javax.persistence.Id;
 import javax.persistence.Table;
 
 @Entity
-@Table(name = "user_auth_token")
-public class UserAuthToken {
+@Table(name = "org_auth_token")
+public class OrgAuthToken {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private int id;
+	private long id;
 	@Column(nullable = false)
-	private int tokenid;
+	private long tokenid;
 	@Column(nullable = false)
-	private Long userId;
+	private Long orgId;
 	@Column
 	private int status;
-	public int getId() {
+	public long getId() {
 		return id;
 	}
 	public void setId(int id) {
 		this.id = id;
 	}
-	public int getToken_id() {
+	public long getToken_id() {
 		return tokenid;
 	}
-	public void setToken_id(int token_id) {
+	public void setToken_id(long token_id) {
 		this.tokenid = token_id;
 	}
 	public int getStatus() {
@@ -37,18 +37,17 @@ public class UserAuthToken {
 	public void setStatus(int status) {
 		this.status = status;
 	}
-	public int getTokenid() {
+	public long getTokenid() {
 		return tokenid;
 	}
-	public void setTokenid(int tokenid) {
+	public void setTokenid(long tokenid) {
 		this.tokenid = tokenid;
 	}
-	public Long getUserId() {
-		return userId;
+	public Long getOrgId() {
+		return orgId;
 	}
-	public void setUserId(Long userId) {
-		this.userId = userId;
+	public void setOrgId(Long orgId) {
+		this.orgId = orgId;
 	}
-	
 	
 }
